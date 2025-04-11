@@ -114,7 +114,7 @@ The key assumption of the pivot bootstrap, in terms of rapid convergence, is tha
 
 $$\frac{t(\hat{F}_n) - t(F)}{\sqrt{\mathbb{V}(t(\hat{F}_n))}}$$
 
-This leads to a pivotal quantity that is akin to the t-statistic. However, unlike a classical t-test, which makes strong distributional assumptions, the bootstrap-t method only demand that this quantity is pivotal. The key assumption therefore is that
+This leads to a pivotal quantity that is akin to the t-statistic. However, unlike a classical t-test, which usually makes strong distributional assumptions, the bootstrap-t method only demands that this quantity is pivotal. The key assumption therefore is that
 
 $$t_n = \frac{\hat{\theta}_n - \theta}{\sigma} \sim H\quad \ \forall \theta \implies t_n^* = \frac{\hat{\theta}_n^* - \hat{\theta}_n}{\sqrt{v_{\text{boot}}}} \sim H$$
 
@@ -207,7 +207,7 @@ Therefore when we map our confidence interval back to $\theta$ space via $m^{-1}
 
 $$\left(G^{-1}\left(\frac{\alpha}{2}\right), G^{-1}\left(1-\frac{\alpha}{2}\right)\right)$$
 
-Finally, we can use our trick of estimating quantiles using our bootstrap distribution to get a estimated confidence interval
+Finally, we can use our trick of estimating quantiles using our bootstrap distribution to get an estimated confidence interval
 
 $$\left(\hat{G}^{-1}\left(\frac{\alpha}{2}\right), \hat{G}^{-1}\left(1-\frac{\alpha}{2}\right)\right),$$
 
@@ -272,6 +272,7 @@ $$H(\phi)=\mathbb{P}(\hat{\phi}_n\leq \phi) = \mathbb{P}\left(\frac{\hat{\phi}_n
 Which means that:
 
 $$z_0 =\Phi^{-1}\left(H(\phi)\right)$$
+
 By monotonicity:
 
 $$z_0= \Phi^{-1}\left(G(\theta)\right)$$
@@ -291,19 +292,19 @@ $$(\hat{G}^{-1}(\Phi(2\hat{z}_0 + z_{\frac{\alpha}{2}})), \hat{G}^{-1}(\Phi(2\ha
 
 As we saw from the BC analysis, loosening our ideal transformation allowed us to use our procedure in a wider set of problems while enjoying optimal convergence properties. Indeed the procedure detailed below actually enjoys second order accuracy, which makes it especially powerful for bootstrapping on smaller sample sizes.
 
-Bias-Corrected Accelerated bootstrap (BCa) loosens the requirement for constant variance, allowing the variance to depend linearly on the unknown parameter. Specifically, assume  there exists some monotone transformation that produces
+Bias-Corrected Accelerated bootstrap (BCa) loosens the requirement for constant variance, allowing the standard deviation to depend linearly on the unknown parameter. Specifically, assume  there exists some monotone transformation that produces
 
 $$\hat{\phi} \sim N(\phi - z_0\sigma_{\phi}, \sigma^2_{\phi}), \quad \sigma_{\phi}=1+a\phi, \quad \forall \phi \implies \hat{\phi}^*_n \sim N(\hat{\phi}_n - z_0\sigma_{\hat{\phi}_n}, \sigma^2_{\hat{\phi}_n})$$
 
 Where BC can  be seen as the special case of $a=0$ and the percentile method can be seen as the special case of $z\_0=0$ and $a=0$.
 
-After an even more elaborate analysis than the BC method, we arrive at and estimated confidence interval:
+After an even more elaborate analysis than the BC method, we arrive at an estimated confidence interval:
 
 $$\hat{\theta}_{BCa}[\beta] = \hat{G}^{-1}\left(\Phi\left(\hat{z_0} + \frac{\hat{z_0}+z_{\beta}}{1-\hat{a}(z_0+z_{\beta})}\right)\right)$$
 
 For non-parametric problems $a$ can be estimated using jackknife resampling:
 
-$$\hat{a}=-\frac{1}{6}\frac{\sum^n_{i=1}(\hat{\theta}_{(i)} - \hat{\theta}_{(\cdot)})^3}{\left(\sum^n_{i=1}(\hat{\theta}_{(i)} - \hat{\theta}_{(\cdot)})^2\right)^{\frac{3}{2}}}$$
+$$\hat{a}=\frac{1}{6}\frac{\sum^n_{i=1}(\hat{\theta}_{(\cdot)} - \hat{\theta}_{(i)})^3}{\left(\sum^n_{i=1}(\hat{\theta}_{(\cdot)} - \hat{\theta}_{(i)})^2\right)^{\frac{3}{2}}}$$
 
 and $z_0$ is estimated as before:
 
