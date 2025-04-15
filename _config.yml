@@ -114,7 +114,7 @@ analytics:
 author:
   name: "Jack Norrie"
   avatar: "/assets/images/avatar.jpg"
-  bio: "Data Scientist"
+  bio: "Machine Learning Engineer"
   location: "London"
   email:
   links:
@@ -318,4 +318,3 @@ defaults:
       comments: # true
       share: true
       related: true
-
