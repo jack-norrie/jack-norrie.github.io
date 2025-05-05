@@ -140,7 +140,7 @@ This empowers us to use the total derivative and chain rule on our adjoint varia
 
 $$\bar{v} = \frac{\partial f}{\partial v} =\sum_{u \in \text{children}(v)}\frac{\partial f}{\partial u}\frac{\partial u}{\partial v} = \sum_{u \in \text{children}(v)}\bar{u}\frac{\partial u}{\partial v}$$
 
-Which shows that we can use the adjoint values of child vertices to calculate the adjoint values of a parent vertices.
+Which shows that we can use the adjoint values of child vertices to calculate the adjoint values of a parent vertex.
 
 Importantly this allows us to compute all the gradients in $O(W)$ as opposed to $O(W^2)$, this is because the end result of reverse mode automatic differentiation will be evaluations of $(v, \bar{v})$ for each vertex. To get the derivative of $f$ with respect to a given input/vertex $w$ simply look at the value of $\bar{w}$.
 
