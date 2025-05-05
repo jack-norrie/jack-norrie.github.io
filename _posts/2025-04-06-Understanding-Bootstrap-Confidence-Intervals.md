@@ -1,9 +1,6 @@
 ---
-toc: true
-classes: wide
 header:
   image: /assets/images/2025-04-06-Understanding-Bootstrap-Confidence-Intervals.png
-share: false
 ---
 
 ## Introduction

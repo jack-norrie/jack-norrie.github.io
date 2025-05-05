@@ -313,12 +313,14 @@ defaults:
       type: posts
     values:
       layout: single
+      classes: wide
+      toc: true
+      excerpt: ""
       author_profile: true
       read_time: true
-      comments: # true
+      comments: false
       share: true
       related: true
-      excerpt: ""
   # _pages
   - scope:
       path: ""

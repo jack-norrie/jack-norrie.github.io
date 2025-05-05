@@ -1,9 +1,6 @@
 ---
-toc: true
-classes: wide
 header:
   image: /assets/images/2025-04-12-Hardware-Accelerated-Bootrapping.png
-share: false
 ---
 
 ## Introduction
