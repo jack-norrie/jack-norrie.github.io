@@ -37,7 +37,7 @@ $$\frac{\partial E}{\partial W_{ij}^{(l)}} = \delta_i^{(l)}z_j^{(l-1)}, \quad \f
 
 Unfortunately, this is where most introductory texts end their discussion on automatic differentiation. I believe this does a huge disservice to budding deep learning practitioners. It leaves them thinking that in order to perform gradient descent on their networks, they must define them in a way amenable to the above procedure, i.e. constraining their network architectures to sequential layers that conform to the above layer function forms. Suddenly, every new neural network compute unit they learn about needs to fit into the above layered framework. For example, convolutional  layers are thought of in terms of sparse matrix multiplications with weight sharing, concatenation layers are framed in terms of combining previously block diagonal matrix computations, batch normalisation layers correspond to various multiplications by diagonal matrices, etc. These misconceptions might be admissible if they remained in the realm of the abstract, but many of these misconceptions, if taken to concrete implementations, would lead to very inefficient procedures. Furthermore, there are many computational components that are simply incompatible with the above framework, e.g. dropout units, max pooling units, ...
 
-I believe the reliance on this example is a hangover from an era where such architectures did encapsulate the vast majority of networks under study. Furthermore, its emphasise on a sleek formula that could, in theory, be hand calculated is also reminiscent from a time when compute was less available. Furthermore, I would argue that the above formulation is antithetical to the objectives of automatic differentiation. The main objective of automatic differentiation is to move away from a world where we have to manually derive derivatives. Armed with the toolkit of automatic differentiation, the problem solving process for getting the derivative of a fully defined forward implementation,  should not be to try and get some cleverly crafted set of iterative equations, it should be to pass the forward implementation to the automatic differentiation engine... That is not to say that the above formulation is not useful, for example, it provides useful insights into the exploding gradients problem. I am simply advocating for a much greater emphasis to be placed on the algorithmic automations provided by automatic differentiation.
+I believe the reliance on this example is a hangover from an era where such architectures did encapsulate the vast majority of networks under study. Furthermore, its emphasise on a sleek formula that could, in theory, be hand calculated is also reminiscent from a time when compute was less available. Furthermore, I would argue that the above formulation is antithetical to the objectives of automatic differentiation. The main objective of automatic differentiation is to move away from a world where we have to manually derive derivatives. Armed with the toolkit of automatic differentiation, the problem solving process for getting the derivative of a fully defined forward implementation,  should not be to try and get some cleverly crafted set of iterative equations, it should be to pass the forward implementation to the automatic differentiation engine... That is not to say that the above formulation is not useful, for example, it provides useful insights into the vanishing/exploding gradients problem. I am simply advocating for a much greater emphasis to be placed on the algorithmic automations provided by automatic differentiation.
 
 ## Background
 
@@ -86,7 +86,7 @@ For example, the rules of symbolic differentiation applied to the original compu
 
 ![compute_graph_grad](/assets/images/backpropagation_compute_grad.png)
 
-The main disadvantage of this approach is that the complexity of the derivative compute graph is often much more complex than the original compute graph, which steams from the branching caused by applications of the chain and product rule. Furthermore, this procedure does not efficiently reuse previous compute.
+The main disadvantage of this approach is that the complexity of the derivative compute graph is often much higher than the original compute graph, which stems from the branching caused by applications of the chain and product rule. Furthermore, this procedure does not efficiently reuse previous compute.
 
 These inefficiencies are not important relative to symbolic differentiation's key objective, which is to produce a human readable output for the derivative in terms of the symbols in the originally supplied expression (this is the technology behind [mathematica](https://www.wolfram.com/mathematica/)). This human readable part is usually implemented by an additional pass through the produced graph where symbols are collected. Furthermore, this requirement that it needs to be passed a mathematical expression makes them ill suited for computer programs with dynamic runtime behaviour, such as dynamic branching and looping.
 
@@ -116,9 +116,9 @@ Forward propagation set off with the objective of finding arbitrary vertex deriv
 
 $$\dot{v}=\frac{\partial v}{\partial w} \quad \forall v \in V,$$
 
-ue then specialised this to the desired case of $v$ being the output vertex.
+we then specialised this to the desired case of $v$ being the output vertex.
 
-However, our actual objective is to get the gradients of a specific vertex (output) with respect to arbitrary vertices (inputs).To this end we now define the "adjoint" vertex values:
+However, our actual objective is to get the gradients of a specific vertex (output) with respect to arbitrary vertices (inputs). To this end, we now define the "adjoint" vertex values:
 
 $$\bar{v}=\frac{\partial f}{\partial v} \quad \forall v \in V,$$
 
@@ -148,17 +148,17 @@ $$\bar{v} = \sum_{u \in \text{children}(v)}\bar{u}\frac{\partial u}{\partial v}\
 
 However, this begs the question, how do we "automatically" get the edge weights, corresponding to the derivatives of children with respect to parents, i.e.
 
-$$\frac{\partial v}{\partial u} \quad u \in \text{parent}(v)$$
+$$\frac{\partial v}{\partial u}, \quad u \in \text{parent}(v)$$
 
 It appears that we need to manually specify these alongside our forward propagation, i.e. we lied in our original assertion. However, if you have ever used an autodiff framework (e.g. PyTorch, TensorFlow or JAX) then it is likely you have not had to manually pass in such derivatives.
 
-This is because under the hood all of the "functions" defined within these frameworks are actually objects, whose default call corresponds to a "forwards" implementation. However, tacked onto all these functions is a reverse mode that the maintainers of the framework have implemented for all the most popular functions (e.g. arithmetic, trigonometric functions, exponential, ...).
+This is because under the hood all of the "functions" defined within these frameworks are actually objects, whose default call corresponds to a "forwards" implementation. However, tacked onto all these functions is a reverse mode that the maintainers of the framework have implemented for all of the most popular functions (e.g. arithmetic, trigonometric functions, exponential, ...).
 
 These pre-implemented functions will cover you in the vast majority of cases. However, in the rare circumstance that the maintainers have not implemented some function that you need, then most frameworks will provide an interface which you can implement such that you can define user defined functions which work within their framework. The only caveat being that you will have to manually implement the derivative of these user defined functions.
 
 ## Revisiting the Layered Network
 
-We started this article with a criticism with the typical way in which backpropagation is introduced, whereby the focus is on the specific application to a layered neural network. In this article we took an alternative approach, we focused on the general framework of automatic differentiation, not a specific application.
+We started this article with a criticism of the typical way in which backpropagation is introduced, whereby the focus is on the specific application to a layered neural network. In this article we took an alternative approach, we focused on the general framework of automatic differentiation, not a specific application.
 
 We will now come full circle and apply this general framework that we have developed to the specific example of a layered neural network. Recall, our layered neural network obeys the forward equations:
 

@@ -3,7 +3,7 @@ title: "About This Site"
 permalink: /about/
 ---
 
-The purpose of this site is first and foremost a means for me to consolidate my knowledge. As a machine learning engineer you can expect to find articles regarding machine learning, deep learning, statistics and general software engineering. If you find the things I post useful then that is a fantastic bonus. Furthermore, as I will detail below, I greatly appreciate it when something that I am ignorant about comes to light. Therefore, if you find that any of my posts are unclear or contain misinformation, then it would greatly be appreciated if you get in contact.
+As a machine learning engineer you can expect to find articles regarding machine learning, deep learning, statistics and general software engineering. However, the main purpose of this site is first and foremost a means for me to consolidate my knowledge. If others find value in these writings, I consider that an added benefit. Furthermore, as I will detail below, I greatly appreciate it when something that I am ignorant about comes to light. Therefore, if you find that any of my posts are unclear or contain misinformation, then it would greatly be appreciated if you get in contact.
 
 During my undergraduate in Physics I was made aware of a learning method called the Feynman method, named after the famous theoretical physicist. The method encourages learning through teaching, i.e. the best way to learn something is to try and teach it to someone. Although Feynman never formally wrote down a "learning method", the technique has been posthumously ascribed to him due to his reputation for being able to break down complex topics and explain them in simple language, the most notable example of this being the Feynman Lectures in Physics.
 
