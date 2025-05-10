@@ -6,6 +6,7 @@ permalink: /posts/
 ## Deep Learning
 
 - [Backpropagation: A Modern Explanation]({% post_url 2025-05-05-Backpropagation:-A-Modern-Explanation %})
+- [Building an Autodiff Library]({% post_url 2025-05-10-Building-an-Autodiff-Library %})
 
 ## Statistics
 
