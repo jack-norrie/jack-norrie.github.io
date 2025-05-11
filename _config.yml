@@ -34,7 +34,7 @@ enable_copy_code_button: # true, false (default)
 copyright: # "copyright" name, defaults to site.title
 copyright_url: # "copyright" URL, defaults to site.url
 comments:
-  provider: # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
+  provider: "giscus"
   disqus:
     shortname: # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
@@ -48,17 +48,17 @@ comments:
     theme: # "github-light" (default), "github-dark"
     issue_term: # "pathname" (default)
   giscus:
-    repo_id: # Shown during giscus setup at https://giscus.app
-    category_name: # Full text name of the category
-    category_id: # Shown during giscus setup at https://giscus.app
-    discussion_term: # "pathname" (default), "url", "title", "og:title"
-    reactions_enabled: # '1' for enabled (default), '0' for disabled
-    theme: # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
-    strict: # 1 for enabled, 0 for disabled (default)
-    input_position: # "top", "bottom" # The comment input box will be placed above or below the comments
-    emit_metadata: # 1 for enabled, 0 for disabled (default) # https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#imetadatamessage
-    lang: # "en" (default)
-    lazy: # true, false # Loading of the comments will be deferred until the user scrolls near the comments container.
+    repo_id: "R_kgDOOTnQqQ"
+    category_name: "Announcements"
+    category_id: "DIC_kwDOOTnQqc4CqBSD"
+    discussion_term: "title"
+    reactions_enabled: "0"
+    theme: "light"
+    strict: "0"
+    input_position: "bottom"
+    emit_metadata: "0"
+    lang: "en"
+    lazy: true
   staticman:
     branch: # "master"
     endpoint: # "https://{your Staticman v3 API}/v3/entry/github/"
@@ -318,7 +318,7 @@ defaults:
       excerpt: ""
       author_profile: true
       read_time: true
-      comments: false
+      comments: true
       share: false
       related: true
   # _pages
