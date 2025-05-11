@@ -21,7 +21,7 @@ title: "Jack Norrie"
 title_separator: "-"
 subtitle: # site tagline that appears below site title in masthead
 name: "Jack Norrie"
-description: "Jack Norrie's personal portfolio website, the posts are primarly focussed on machine learning and data science."
+description: "A personal portfolio website where I showcase articles and projects on machine learning, deep learning, statistics and software engineering."
 url: "https://jack-norrie.github.io"
 baseurl: ""
 repository: "jack-norrie/jack-norrie.github.io"
