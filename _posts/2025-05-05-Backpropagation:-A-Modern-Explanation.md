@@ -156,6 +156,8 @@ This is because under the hood all of the "functions" defined within these frame
 
 These pre-implemented functions will cover you in the vast majority of cases. However, in the rare circumstance that the maintainers have not implemented some function that you need, then most frameworks will provide an interface which you can implement such that you can define user defined functions which work within their framework. The only caveat being that you will have to manually implement the derivative of these user defined functions.
 
+> For a full walkthrough on how to build a library that implements the above functionality, see my blog [post](https://jack-norrie.com/Building-an-Autodiff-Library/).
+
 ## Revisiting the Layered Network
 
 We started this article with a criticism of the typical way in which backpropagation is introduced, whereby the focus is on the specific application to a layered neural network. In this article we took an alternative approach, we focused on the general framework of automatic differentiation, not a specific application.
