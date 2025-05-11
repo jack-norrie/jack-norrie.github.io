@@ -23,15 +23,15 @@ $$g(x) = \phi(Wx + b)$$
 
 Where we call $\phi$ the activation function for the layer. Under these constraints, the above function composition can be rephrased in terms of an iterative procedure in terms of transforming the output vectors from one layer to the next layer.
 
-$$z^{(l)}=\phi(s^{(l)})$$
+$$h^{(l)}=\phi(a^{(l)})$$
 
-$$s^{(l)}= W^{(l)}z^{(l-1)}+b^{(l)}$$
+$$a^{(l)}= W^{(l)}h^{(l-1)}+b^{(l)}$$
 
-Where we call $z^{(l)}$ the post-activation and $s^{(l)}$  the pre-activation of layer $l$. The input to the network is $z^{(0)}=x$  and the output is $z^{(L)}$
+Where we call $h^{(l)}$ the post-activation and $a^{(l)}$  the pre-activation of layer $l$. The input to the network is $h^{(0)}=x$  and the output is $h^{(L)}$
 
 After defining the above setup, most machine learning texts then go on to derive the backpropagation algorithm. Unfortunately, it is hard to come by a consistent definition of "backpropagation", some texts describe it as the algorithm for getting derivatives for networks like the one defined above, while others define it as the full optimisation procedure for neural networks (including gradient descent). Nonetheless, at the intersection of these treatments of backpropagation, are the following iterative equations for calculating derivatives:
 
-$$\delta^{(l-1)}= \phi'(s^{(l-1)}) \odot (W^{(l)})^T \delta^{(l)}$$
+$$\delta^{(l-1)}= \phi'(a^{(l-1)}) \odot (W^{(l)})^T \delta^{(l)}$$
 
 $$\frac{\partial E}{\partial W_{ij}^{(l)}} = \delta_i^{(l)}z_j^{(l-1)}, \quad \frac{\partial E}{\partial b_{i}^{(l)}} = \delta_i^{(l)}$$
 
@@ -162,25 +162,25 @@ We started this article with a criticism of the typical way in which backpropaga
 
 We will now come full circle and apply this general framework that we have developed to the specific example of a layered neural network. Recall, our layered neural network obeys the forward equations:
 
-$$z^{(l)}=\phi(s^{(l)})$$
+$$h^{(l)}=\phi(a^{(l)})$$
 
-$$s^{(l)}= W^{(l)}z^{(l-1)}+b^{(l)}$$
+$$a^{(l)}= W^{(l)}h^{(l-1)}+b^{(l)}$$
 
-We now turn our attention to the adjoint variables $\bar{s}^{(l)}$, which are equivalent to vertex sensitivities in our original treatment $\delta^{(l)} = \bar{s}^{(l)}$. The reason we look into these quantities instead of the more direct $\bar{W}^{l}_{ij}$ is because ultimately we are looking for an iterative expression we can apply to the compute graph, and the former adjoint variables are leafs, i.e. dead ends. Our backwards autodiff equation now tells us that
+We now turn our attention to the adjoint variables $\bar{a}^{(l)}$, which are equivalent to vertex sensitivities in our original treatment $\delta^{(l)} = \bar{a}^{(l)}$. The reason we look into these quantities instead of the more direct $\bar{W}^{l}_{ij}$ is because ultimately we are looking for an iterative expression we can apply to the compute graph, and the former adjoint variables are leafs, i.e. dead ends. Our backwards autodiff equation now tells us that
 
-$$\bar{s}^{(l-1)}_i = \sum_{j} \bar{s}^{(l)}_j \frac{\partial s_j^{(l)}}{\partial s^{(l-1)}_i}=\sum_{j} \bar{s}^{(l)}_j \frac{\partial \left(W^{(l)}\phi(s^{(l-1)})+b^{(l)}\right)_j}{\partial s^{(l-1)}_i}=\sum_{j} \bar{s}^{(l)}_j W^{(l)}_{ji}\phi'(s_i) $$
+$$\bar{a}^{(l-1)}_i = \sum_{j} \bar{a}^{(l)}_j \frac{\partial s_j^{(l)}}{\partial a^{(l-1)}_i}=\sum_{j} \bar{a}^{(l)}_j \frac{\partial \left(W^{(l)}\phi(a^{(l-1)})+b^{(l)}\right)_j}{\partial a^{(l-1)}_i}$$
 
-$$= \phi'(s_i)\sum_{j} \bar{s}^{(l)}_j W^{(l)}_{ji}  = \phi'(s_i)\sum_{j}  (W^{(l)}_{ij})^T \bar{s}^{(l)}_j$$
+$$=\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}\phi'(s_i)  = \phi'(s_i)\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}  = \phi'(s_i)\sum_{j}  (W^{(l)}_{ij})^T \bar{a}^{(l)}_j$$
 
 Or in vector form
 
-$$\bar{s}^{(l-1)}= \phi'(s^{(l-1)}) \odot (W^{(l)})^T \bar{s}^{(l)}$$
+$$\bar{a}^{(l-1)}= \phi'(a^{(l-1)}) \odot (W^{(l)})^T \bar{a}^{(l)}$$
 
 Now all that remains is to go one connection down into the compute graph and get the derivatives with respect to the parameters that feed into the pre-activations:
 
-$$\bar{W}^{(l)}_{ij}= \bar{s}_i^{(l)}\frac{\partial s^{(l)}_i}{\partial W_{ij}^{(l)}}, \quad  \bar{b}^{(l)}_{i}= \bar{s}_i^{(l)}\frac{\partial s^{(l)}_i}{\partial b_{i}^{(l)}}$$
+$$\bar{W}^{(l)}_{ij}= \bar{a}_i^{(l)}\frac{\partial a^{(l)}_i}{\partial W_{ij}^{(l)}}, \quad  \bar{b}^{(l)}_{i}= \bar{a}_i^{(l)}\frac{\partial a^{(l)}_i}{\partial b_{i}^{(l)}}$$
 
-$$\bar{W}^{(l)}_{ij}= \bar{s}_i^{(l)} z_j^{(l-1)}, \quad  \bar{b}^{(l)}_{i}= \bar{s}_i^{(l)}$$
+$$\bar{W}^{(l)}_{ij}= \bar{a}_i^{(l)} z_j^{(l-1)}, \quad  \bar{b}^{(l)}_{i}= \bar{a}_i^{(l)}$$
 
 Which is equivalent to the result shown in our original discussion on backpropagation.
 
