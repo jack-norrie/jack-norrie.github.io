@@ -170,9 +170,9 @@ $$a^{(l)}= W^{(l)}h^{(l-1)}+b^{(l)}$$
 
 We now turn our attention to the adjoint variables $\bar{a}^{(l)}$, which are equivalent to vertex sensitivities in our original treatment $\delta^{(l)} = \bar{a}^{(l)}$. The reason we look into these quantities instead of the more direct $\bar{W}^{l}_{ij}$ is because ultimately we are looking for an iterative expression we can apply to the compute graph, and the former adjoint variables are leafs, i.e. dead ends. Our backwards autodiff equation now tells us that
 
-$$\bar{a}^{(l-1)}_i = \sum_{j} \bar{a}^{(l)}_j \frac{\partial s_j^{(l)}}{\partial a^{(l-1)}_i}=\sum_{j} \bar{a}^{(l)}_j \frac{\partial \left(W^{(l)}\phi(a^{(l-1)})+b^{(l)}\right)_j}{\partial a^{(l-1)}_i}$$
+$$\bar{a}^{(l-1)}_i = \sum_{j} \bar{a}^{(l)}_j \frac{\partial a_j^{(l)}}{\partial a^{(l-1)}_i}=\sum_{j} \bar{a}^{(l)}_j \frac{\partial \left(W^{(l)}\phi(a^{(l-1)})+b^{(l)}\right)_j}{\partial a^{(l-1)}_i}$$
 
-$$=\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}\phi'(s_i)  = \phi'(s_i)\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}  = \phi'(s_i)\sum_{j}  (W^{(l)}_{ij})^T \bar{a}^{(l)}_j$$
+$$=\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}\phi'(a_i)  = \phi'(a_i)\sum_{j} \bar{a}^{(l)}_j W^{(l)}_{ji}  = \phi'(a_i)\sum_{j}  (W^{(l)})^T_{ij} \bar{a}^{(l)}_j$$
 
 Or in vector form
 
